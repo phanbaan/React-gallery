@@ -1,42 +1,87 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Header.css";
 import { FaEdge, FaBars, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+
+import { NavLink, useHistory } from "react-router-dom";
+import firebase from "../config/firebase";
+import AppContext from "../store/AppContext";
 
 export default function Header() {
+  const [isLoggedIn] = useContext(AppContext);
+  const history = useHistory();
+
+  function logout() {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        history.replace("/login");
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  }
   return (
     <nav className="navbar">
       <div className="navbar__container">
-        <div className="navbar__logo">
+        <NavLink to="/" className="navbar__logo">
           <FaEdge className="logo__icon" />
           Logo
-        </div>
+        </NavLink>
         <div className="navbar__mobile">
-          <FaTimes /> <FaTimes />
+          <FaTimes />
         </div>
-        <ul className="nav__list">
+        <ul className="nav__list menu">
           <li className="nav__item">
-            <Link to="/" className="nav__link">
-              Home
-            </Link>
+            <NavLink
+              to="/"
+              className="nav__link"
+              activeClassName="nav__link-active"
+              exact
+            >
+              Trang chủ
+            </NavLink>
           </li>
           <li className="nav__item">
-            <Link to="/gallery" className="nav__link">
-              gallery
-            </Link>
+            <NavLink
+              to="/gallery"
+              className="nav__link"
+              activeClassName="nav__link-active"
+            >
+              Thư viện ảnh
+            </NavLink>
           </li>
-        </ul>
-        <ul className="nav__list">
-          <li className="nav__item">
-            <Link to="/login" className="nav__link">
-              login
-            </Link>
+          <li className="nav__item btn">
+            {isLoggedIn ? (
+              <NavLink
+                to="/login"
+                className="nav__link"
+                onClick={logout}
+                activeClassName="nav__link-active"
+              >
+                Đăng xuất
+              </NavLink>
+            ) : (
+              <NavLink
+                to="/login"
+                className="nav__link "
+                activeClassName="nav__link-active"
+              >
+                Đăng nhập
+              </NavLink>
+            )}
           </li>
-          <li className="nav__item">
-            <Link to="/login" className="nav__link">
-              login
-            </Link>
-          </li>
+          {!isLoggedIn && (
+            <li className="nav__item btn">
+              <NavLink
+                to="/signup"
+                className="nav__link "
+                activeClassName="nav__link-active"
+              >
+                Đăng ký
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

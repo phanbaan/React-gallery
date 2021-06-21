@@ -53,7 +53,7 @@ export default function Images() {
     <>
       <div className="search">
         <input
-          placeholder="search name..."
+          placeholder="Nhập ảnh tìm kiếm.."
           type="text"
           className="search__input"
           onChange={handleSearch}
