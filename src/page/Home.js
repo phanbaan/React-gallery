@@ -1,9 +1,11 @@
 import React from "react";
+import Banner from "../components/Banner";
 
 export default function Home() {
+  console.log("home chay");
   return (
     <div className="container">
-      <h1>Home</h1>
+      <Banner />
     </div>
   );
 }
