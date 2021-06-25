@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const api = process.env.REACT_APP_UNSPLASH_API;
-const secret = process.env.REACT_APP_UNSPLASH_KEY;
+const api = "https://api.unsplash.com";
+const secret = "4FiCkN9q77ZaSrHHcF5j1quN5VLPYdRMANSHIJtaABc";
 
 export default function useFetchImage(page, searchTerm) {
   const [images, setImages] = useState([]);
