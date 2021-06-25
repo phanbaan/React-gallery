@@ -10,7 +10,6 @@ export default function useFetchImage(page, searchTerm) {
   const [isLoading, setIsLoading] = useState(false);
 
   function fetch() {
-    console.log("api");
     const url =
       searchTerm === null ? "photos?" : `search/photos?query=${searchTerm}&`;
     axios
